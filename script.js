@@ -30,6 +30,12 @@ const questions = [
   },
 ];
 
+const questionsElement = document.getElementById("questions");
+const submit = document.getElementById("submit");
+let userAnswers = JSON.parse(sessionStorage.getItem(""))||[];
+
+submit.addEventListener("click",addScore);
+
 // Display the quiz questions and choices
 function renderQuestions() {
   for (let i = 0; i < questions.length; i++) {
@@ -53,4 +59,19 @@ function renderQuestions() {
     questionsElement.appendChild(questionElement);
   }
 }
+
+function addScore() {
+	let score = 0;
+	for (let i = 0; i < questions.length; i++) {
+		let question = questions[i];
+		let ans = userAnswers[i];
+		if (question.answer === ans) {
+			score++;
+		}
+	}
+	localStorage.addItem("score",score);
+	const scoreCon = document.getElementById("score");
+	scoreCon.innerText = `Your Score is ${score}.`;
+}
+
 renderQuestions();

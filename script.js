@@ -83,7 +83,7 @@ function addScore() {
 	}
 	localStorage.setItem("score",score);
 	const scoreCon = document.getElementById("score");
-	scoreCon.innerText = `Your Score is ${score}.`;
+	scoreCon.innerText = `Your Score is ${score} out of 5.`;
 }
 
 renderQuestions();

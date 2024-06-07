@@ -32,7 +32,7 @@ const questions = [
 
 const questionsElement = document.getElementById("questions");
 const submit = document.getElementById("submit");
-let userAnswers = JSON.parse(sessionStorage.getItem(""))||[];
+let userAnswers = JSON.parse(sessionStorage.getItem("ans"))||[];
 
 submit.addEventListener("click",addScore);
 
@@ -60,6 +60,18 @@ function renderQuestions() {
   }
 }
 
+function addAnswer() {
+	const inputs = document.querySelectorAll("input");
+	//console.log(inputs);
+	for (let i = 0; i < inputs.length; i++) {
+		inputs[i].addEventListener("change",(event)=>{
+			let ans = event.target.value;
+			// console.log(ans);
+			userAnswers[parseInt(event.target.name.split('-')[1])]=ans;
+			sessionStorage.setItem("ans",JSON.stringify(userAnswers));
+		})
+	}
+}
 function addScore() {
 	let score = 0;
 	for (let i = 0; i < questions.length; i++) {
@@ -69,9 +81,10 @@ function addScore() {
 			score++;
 		}
 	}
-	localStorage.addItem("score",score);
+	localStorage.setItem("score",score);
 	const scoreCon = document.getElementById("score");
 	scoreCon.innerText = `Your Score is ${score}.`;
 }
 
 renderQuestions();
+addAnswer();
